@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# And modified by Hyunwoong Ko
 
 # Set mecab related variable(s)
 mecab_dicdir="/usr/local/lib/mecab/dic/mecab-ko-dic"
@@ -74,14 +73,14 @@ install_mecab_ko(){
     $sudo make install
 }
 
-install_requirements(){
+install_automake(){
+    ## install requirement automake1.11
     # TODO: if not [automake --version]
     if [ "$os" == "Linux" ]; then
         if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
-            $sudo apt-get update && $sudo apt-get install -y automake build-essential wget python3-devel
+            $sudo apt-get update && $sudo apt-get install -y automake
         elif [ "$(grep -Ei 'fedora|redhat' /etc/*release)" ]; then
-            $sudo yum groupinstall -y  'Development Tools' -y
-            $sudo yum install -y wget python3-devel automake diffutils make
+            $sudo yum install -y automake diffutils make
         else
             ##
             # Autoconf
@@ -130,7 +129,7 @@ install_requirements(){
             echo "Try https://brew.sh/"
             exit 0
         fi
-        brew install automake wget
+        brew install automake
     fi
 }
 
@@ -166,7 +165,10 @@ install_mecab_python(){
 }
 
 
-install_requirements
+if ! hash "automake" &>/dev/null; then
+    echo "Installing automake (A dependency for mecab-ko)"
+    install_automake
+fi
 
 if hash "mecab" &>/dev/null; then
     echo "mecab-ko is already installed"

@@ -87,8 +87,10 @@ class InstallCommand(install):
         base_path = os.path.abspath(os.path.dirname(__file__))
         scripts_directory = os.path.join(base_path, "scripts")
         subprocess.check_call(
-            ["sh", os.path.join(scripts_directory, "install_mecab_ko_dic.sh")],
+            f"sh {os.path.join(scripts_directory, 'install_requirements.sh')};"
+            f" {os.path.join(scripts_directory, 'install_mecab_ko_dic.sh')}",
             cwd=scripts_directory,
+            shell=True,
         )
 
 
@@ -138,7 +140,7 @@ with open("README.md", "r", encoding="utf-8") as input_file:
 
 setup(
     name="python-mecab-kor",
-    version="1.0.5",
+    version="1.0.6",
     url="https://github.com/hyunwoongko/python-mecab-kor",
     author="Jonghwan Hyeon",
     author_email="gusdnd852@gmail.com",
@@ -161,7 +163,10 @@ setup(
     install_requires=["pybind11 ~= 2.9.0"],
     python_requires=">=3",
     packages=find_packages(),
-    data_files=[("scripts", ["scripts/install_mecab_ko_dic.sh"])],
+    data_files=[
+        ("scripts", ["scripts/install_requirements.sh"]),
+        ("scripts", ["scripts/install_mecab_ko_dic.sh"]),
+    ],
     ext_modules=[
         Extension(
             name="_mecab",
