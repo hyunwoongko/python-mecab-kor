@@ -5,7 +5,7 @@
 ## 1. Why another package? 
 Original [python-mecab-ko](https://github.com/jonghwanhyeon/python-mecab-ko) is not being maintained well now, 
 so I am trying to maintain it myself, and I've fixed a lot of problems about installation.
-Be careful that I changed `ko` to `kor` because I can't keep the package name same with the original.
+Be careful that the package name was changed `ko` to `kor` because I can't keep the package name same with the original.
 
 ## 2. What OS have you tested successfully so far?
 It has been successfully installed on the following OS list.
