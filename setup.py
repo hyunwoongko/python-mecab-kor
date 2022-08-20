@@ -11,6 +11,11 @@ from setuptools.command.install import install
 # Based on https://github.com/pybind/python_example
 
 os.environ["PATH"] += os.pathsep + os.path.join(sys.prefix, "bin")
+base_path = os.path.abspath(os.path.dirname(__file__))
+scripts_directory = os.path.join(base_path, "scripts")
+
+with open("requirements.txt", "r") as requirements_file:
+    INSTALL_REQUIRES = requirements_file.read().splitlines()
 
 
 class BuildExtensionCommand(build_ext):
@@ -79,19 +84,13 @@ class BuildExtensionCommand(build_ext):
 class InstallCommand(install):
     def run(self):
         if not shutil.which("mecab"):
-            self.install_mecab()
+            subprocess.check_call(
+                f"sh {os.path.join(scripts_directory, 'install_mecab_ko_dic.sh')}",
+                cwd=scripts_directory,
+                shell=True,
+            )
 
         super().run()
-
-    def install_mecab(self):
-        base_path = os.path.abspath(os.path.dirname(__file__))
-        scripts_directory = os.path.join(base_path, "scripts")
-        subprocess.check_call(
-            f"sh {os.path.join(scripts_directory, 'install_requirements.sh')};"
-            f" {os.path.join(scripts_directory, 'install_mecab_ko_dic.sh')}",
-            cwd=scripts_directory,
-            shell=True,
-        )
 
 
 def lazy(func):
@@ -110,6 +109,15 @@ def lazy(func):
             return other + str(self)
 
     return Decorator
+
+
+@lazy
+def install_requirements():
+    subprocess.check_call(
+        f"sh {os.path.join(scripts_directory, 'install_requirements.sh')}",
+        cwd=scripts_directory,
+        shell=True,
+    )
 
 
 @lazy
@@ -140,7 +148,7 @@ with open("README.md", "r", encoding="utf-8") as input_file:
 
 setup(
     name="python-mecab-kor",
-    version="1.0.6",
+    version="1.0.7",
     url="https://github.com/hyunwoongko/python-mecab-kor",
     author="Jonghwan Hyeon",
     author_email="gusdnd852@gmail.com",
@@ -160,7 +168,7 @@ setup(
         "Topic :: Text Processing :: Linguistic",
     ],
     zip_safe=False,
-    install_requires=["pybind11 ~= 2.9.0"],
+    install_requires=INSTALL_REQUIRES,
     python_requires=">=3",
     packages=find_packages(),
     data_files=[
@@ -179,6 +187,7 @@ setup(
                 "mecab/pybind/_mecab/_mecab.cpp",
             ],
             include_dirs=[
+                install_requirements(),
                 get_pybind_include(),
                 get_pybind_include(user=True),
                 get_mecab_include_directory(),
