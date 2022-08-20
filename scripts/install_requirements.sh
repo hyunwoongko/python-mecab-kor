@@ -20,7 +20,7 @@ install_requirements(){
         if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
             $sudo apt-get update && $sudo apt-get install -y build-essential wget python3-devel
         elif [ "$(grep -Ei 'fedora|redhat' /etc/*release)" ]; then
-            $sudo yum groupinstall -y  'Development Tools' -y && $sudo yum install -y wget python3-devel
+            $sudo yum groupinstall -y 'Development Tools' && $sudo yum install -y wget python3-devel
         fi
     elif [ "$os" == "Darwin" ]; then
         if [[ $(command -v brew) == "" ]]; then
