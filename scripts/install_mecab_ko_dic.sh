@@ -78,9 +78,10 @@ install_automake(){
     # TODO: if not [automake --version]
     if [ "$os" == "Linux" ]; then
         if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
-            $sudo apt-get update && $sudo apt-get install -y automake
+            $sudo apt-get update && $sudo apt-get install -y automake build-essential wget python3-devel
         elif [ "$(grep -Ei 'fedora|redhat' /etc/*release)" ]; then
-            $sudo yum install -y automake diffutils make
+            $sudo yum groupinstall -y  'Development Tools' -y
+            $sudo yum install -y wget python3-devel automake diffutils make
         else
             ##
             # Autoconf
@@ -129,7 +130,7 @@ install_automake(){
             echo "Try https://brew.sh/"
             exit 0
         fi
-        brew install automake
+        brew install automake wget
     fi
 }
 

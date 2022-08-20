@@ -17,32 +17,12 @@ I will do my best to fix your errors.
 
 **Please note that I don't have any plan with Windows OS.**
 
-## 3. Prerequisites
-The required packages must be installed with the following command to work properly.
-
-### 3.1. `apt` package manager
-For Linux Ubuntu:
-```
-sudo apt install build-essential wget python3-devel -y
-```
-### 3.2. `yum` package manager
-For Linux CentOS, Amazon Linux:
-```
-sudo yum groupinstall 'Development Tools' -y
-sudo yum install wget python3-devel -y
-```
-### 3.3. `brew` package manager
-For Mac OS:
-```
-brew install wget
-```
-
-## 4. Installation
+## 3. Installation
 ```
 pip install python-mecab-kor
 ```
 
-## 5. Usage
+## 4. Usage
 Usage of the package is same with the original.
 
 ```python
@@ -84,6 +64,6 @@ mecab.parse('즐거운 하루 보내세요!')
 # ]
 ```
 
-## 6. References
+## 5. References
 - [konlpy](https://github.com/konlpy/konlpy/)
 - [python-mecab-ko](https://github.com/jonghwanhyeon/python-mecab-ko)
