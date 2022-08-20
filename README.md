@@ -1,11 +1,11 @@
 # python-mecab-kor
 
-## Why another package? 
+## 1. Why another package? 
 Original [python-mecab-ko](https://github.com/jonghwanhyeon/python-mecab-ko) is not being maintained now, 
 so I am trying to maintain it myself, and I've fixed a lot of problems about installation.
 Be careful that I changed `ko` to `kor` because I can't keep the package name same with the original.
 
-## What OS have you tested successfully so far?
+## 2. What OS have you tested successfully so far?
 It has been successfully installed on the following OS list.
 If the installation succeeds or fails on your OS, please report it through the issue page. 
 I will do my best to fix your errors. 
@@ -17,10 +17,10 @@ I will do my best to fix your errors.
 
 **Please note that I don't have any plan with Windows OS.**
 
-## Prerequisites
+## 3. Prerequisites
 The required packages must be installed with the following command to work properly.
 
-### `apt` package manager
+### 3.1. `apt` package manager
 For Linux Ubuntu:
 ```
 sudo apt install build-essential wget python3-devel -y
@@ -31,7 +31,7 @@ For Linux CentOS, Amazon Linux:
 sudo yum groupinstall 'Development Tools' -y
 sudo yum install wget python3-devel -y
 ```
-## `brew` package manager
+### 3.3. `brew` package manager
 For Mac OS:
 ```
 brew install wget
