@@ -138,7 +138,7 @@ with open("README.md", "r", encoding="utf-8") as input_file:
 
 setup(
     name="python-mecab-kor",
-    version="1.0.4",
+    version="1.0.5",
     url="https://github.com/hyunwoongko/python-mecab-kor",
     author="Jonghwan Hyeon",
     author_email="gusdnd852@gmail.com",
