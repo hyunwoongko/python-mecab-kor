@@ -18,9 +18,9 @@ install_requirements(){
     # TODO: if not [automake --version]
     if [ "$os" == "Linux" ]; then
         if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
-            $sudo apt-get update && $sudo apt-get install -y build-essential curl python3-devel
+            $sudo apt-get update && $sudo apt-get install -y build-essential curl python3-devel git
         elif [ "$(grep -Ei 'fedora|redhat' /etc/*release)" ]; then
-            $sudo yum groupinstall -y 'Development Tools' && $sudo yum install -y curl python3-devel
+            $sudo yum groupinstall -y 'Development Tools' && $sudo yum install -y curl python3-devel git
         fi
     elif [ "$os" == "Darwin" ]; then
         if [[ $(command -v brew) == "" ]]; then
