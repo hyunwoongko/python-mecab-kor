@@ -74,8 +74,7 @@ install_mecab_ko(){
     $sudo make install
 }
 
-install_automake(){
-    ## install requirement automake1.11
+install_requirements(){
     # TODO: if not [automake --version]
     if [ "$os" == "Linux" ]; then
         if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
@@ -167,10 +166,7 @@ install_mecab_python(){
 }
 
 
-if ! hash "automake" &>/dev/null; then
-    echo "Installing automake (A dependency for mecab-ko)"
-    install_automake
-fi
+install_requirements
 
 if hash "mecab" &>/dev/null; then
     echo "mecab-ko is already installed"
