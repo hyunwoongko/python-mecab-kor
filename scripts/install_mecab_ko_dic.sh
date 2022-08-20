@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# And modified by Hyunwoong Ko
 
 # Set mecab related variable(s)
 mecab_dicdir="/usr/local/lib/mecab/dic/mecab-ko-dic"
