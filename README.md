@@ -3,7 +3,7 @@
 <a href="https://github.com/hyunwoongko/python-mecab-kor/issues"><img alt="Issues" src="https://img.shields.io/github/issues/hyunwoongko/python-mecab-kor"/></a>
 
 ## 1. Why another package? 
-Original [python-mecab-ko](https://github.com/jonghwanhyeon/python-mecab-ko) is great pacakge. but sadly it is not being maintained well now, 
+[python-mecab-ko](https://github.com/jonghwanhyeon/python-mecab-ko) is great pacakge. but sadly it is not being maintained well now, 
 so I am trying to maintain it myself, and I've fixed a lot of problems about installation.
 Be careful that the package name was changed `ko` to `kor` because I can't keep the package name same with the original.
 
