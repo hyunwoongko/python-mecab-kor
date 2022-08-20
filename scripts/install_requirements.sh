@@ -1,9 +1,16 @@
 #! /bin/bash
 
+# Determine sudo
+if hash "sudo" &>/dev/null; then
+    sudo="sudo"
+else
+    sudo=""
+fi
+
 os=$(uname)
 if [[ ! $os == "Linux" ]] && [[ ! $os == "Darwin" ]]; then
     echo "This script does not support this OS."
-    echo "Try consulting https://github.com/konlpy/konlpy/blob/master/scripts/mecab.sh"
+    echo "Try consulting https://github.com/hyunwoongko/python-mecab-kor/issues"
     exit 0
 fi
 

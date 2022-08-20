@@ -4,8 +4,9 @@ import subprocess
 import sys
 
 import setuptools
-from setuptools import Extension, find_packages, setup
+from setuptools import find_packages, setup, Extension
 from setuptools.command.build_ext import build_ext
+from setuptools.command.build_py import build_py
 from setuptools.command.install import install
 
 # Based on https://github.com/pybind/python_example
@@ -13,9 +14,19 @@ from setuptools.command.install import install
 os.environ["PATH"] += os.pathsep + os.path.join(sys.prefix, "bin")
 base_path = os.path.abspath(os.path.dirname(__file__))
 scripts_directory = os.path.join(base_path, "scripts")
+requirements_installed = False
 
-with open("requirements.txt", "r") as requirements_file:
-    INSTALL_REQUIRES = requirements_file.read().splitlines()
+
+class BuildPyCommand(build_py):
+    def run(self):
+        output = super().run()
+        command = f"sh {os.path.join(scripts_directory, 'install_requirements.sh')}"
+        subprocess.check_call(
+            command,
+            cwd=scripts_directory,
+            shell=True,
+        )
+        return output
 
 
 class BuildExtensionCommand(build_ext):
@@ -112,15 +123,6 @@ def lazy(func):
 
 
 @lazy
-def install_requirements():
-    subprocess.check_call(
-        f"sh {os.path.join(scripts_directory, 'install_requirements.sh')}",
-        cwd=scripts_directory,
-        shell=True,
-    )
-
-
-@lazy
 def get_pybind_include(user=False):
     import pybind11
 
@@ -143,20 +145,25 @@ def get_mecab_library_directory():
     )
 
 
+version = {}  # type: ignore
+
+with open("mecab/__version__.py", "r") as version_file:
+    exec(version_file.read(), version)
+
 with open("README.md", "r", encoding="utf-8") as input_file:
     long_description = input_file.read()
 
 setup(
     name="python-mecab-kor",
-    version="1.0.7",
+    version=version["version"],
     url="https://github.com/hyunwoongko/python-mecab-kor",
-    author="Jonghwan Hyeon",
+    author="Hyunwoong Ko",
     author_email="gusdnd852@gmail.com",
     description="Yet another python binding for mecab-ko",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="BSD",
-    keywords="mecab mecab-ko",
+    keywords="mecab mecab-ko python-mecab python-mecab-ko python-mecab-kor",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Science/Research",
@@ -168,9 +175,11 @@ setup(
         "Topic :: Text Processing :: Linguistic",
     ],
     zip_safe=False,
-    install_requires=INSTALL_REQUIRES,
+    install_requires=[
+        "pybind11 ~= 2.9.0",
+        "wheel",
+    ],
     python_requires=">=3",
-    packages=find_packages(),
     data_files=[
         ("scripts", ["scripts/install_requirements.sh"]),
         ("scripts", ["scripts/install_mecab_ko_dic.sh"]),
@@ -187,7 +196,6 @@ setup(
                 "mecab/pybind/_mecab/_mecab.cpp",
             ],
             include_dirs=[
-                install_requirements(),
                 get_pybind_include(),
                 get_pybind_include(user=True),
                 get_mecab_include_directory(),
@@ -198,5 +206,10 @@ setup(
             language="c++",
         ),
     ],
-    cmdclass={"install": InstallCommand, "build_ext": BuildExtensionCommand},
+    packages=find_packages(),
+    cmdclass={
+        "install": InstallCommand,
+        "build_py": BuildPyCommand,
+        "build_ext": BuildExtensionCommand,
+    },
 )

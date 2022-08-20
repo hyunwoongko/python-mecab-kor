@@ -1,4 +1,6 @@
 # python-mecab-kor
+<a href="https://github.com/hyunwoongko/python-mecab-kor/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/hyunwoongko/python-mecab-kor.svg" /></a>
+<a href="https://github.com/hyunwoongko/python-mecab-kor/issues"><img alt="Issues" src="https://img.shields.io/github/issues/hyunwoongko/python-mecab-kor"/></a>
 
 ## 1. Why another package? 
 Original [python-mecab-ko](https://github.com/jonghwanhyeon/python-mecab-ko) is not being maintained well now, 
@@ -7,7 +9,7 @@ Be careful that I changed `ko` to `kor` because I can't keep the package name sa
 
 ## 2. What OS have you tested successfully so far?
 It has been successfully installed on the following OS list.
-If the installation succeeds or fails on your OS, please report it through the issue page. 
+If the installation succeeds or fails on your OS, please report it through the [issue page](https://github.com/hyunwoongko/python-mecab-kor/issues). 
 I will do my best to fix your errors. 
 
 - Linux Ubuntu
