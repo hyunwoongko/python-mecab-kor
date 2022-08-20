@@ -20,9 +20,8 @@ requirements_installed = False
 class BuildPyCommand(build_py):
     def run(self):
         output = super().run()
-        command = f"sh {os.path.join(scripts_directory, 'install_requirements.sh')}"
         subprocess.check_call(
-            command,
+            f"sh {os.path.join(scripts_directory, 'install_requirements.sh')}",
             cwd=scripts_directory,
             shell=True,
         )
