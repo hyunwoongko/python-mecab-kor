@@ -4,7 +4,7 @@
 
 ## 1. Why another package? 
 [python-mecab-ko](https://github.com/jonghwanhyeon/python-mecab-ko) is great package but sadly it is not being maintained well now.
-So I am trying to maintain it myself, and I've fixed a lot of problems about installation.
+So I decided to maintain it myself and I've fixed a lot of problems about installation.
 Be careful that the package name was changed `ko` to `kor` because I can't keep the package name same with the original.
 
 ## 2. What OS have you tested successfully so far?
