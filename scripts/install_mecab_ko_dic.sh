@@ -129,7 +129,11 @@ install_automake(){
             echo "Try https://brew.sh/"
             exit 0
         fi
-        brew install automake
+        if [[ $(uname -m) == 'arm64' ]]; then
+          arch -arm64 brew install automake
+        else
+          brew install automake
+        fi
     fi
 }
 
