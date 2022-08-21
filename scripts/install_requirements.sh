@@ -28,7 +28,11 @@ install_requirements(){
             echo "Try https://brew.sh/"
             exit 0
         fi
-        brew install curl
+        if [[ $(uname -m) == 'arm64' ]]; then
+          arch -arm64 brew install curl
+        else
+          brew install curl
+        fi
     fi
 }
 
