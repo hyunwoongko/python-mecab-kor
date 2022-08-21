@@ -40,7 +40,7 @@ install_requirements(){
         fi
     fi
 
-    $python -m pip install wheel pybind11 ~= 2.9.0
+    $python -m pip install wheel pybind11~=2.9.0
 }
 
 install_requirements
