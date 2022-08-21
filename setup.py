@@ -174,10 +174,6 @@ setup(
         "Topic :: Text Processing :: Linguistic",
     ],
     zip_safe=False,
-    install_requires=[
-        "pybind11 ~= 2.9.0",
-        "wheel",
-    ],
     python_requires=">=3",
     data_files=[
         ("scripts", ["scripts/install_requirements.sh"]),

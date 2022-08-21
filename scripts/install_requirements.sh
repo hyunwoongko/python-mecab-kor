@@ -7,6 +7,11 @@ else
     sudo=""
 fi
 
+python="python3"
+if hash "pyenv" &>/dev/null; then
+    python="python"
+fi
+
 os=$(uname)
 if [[ ! $os == "Linux" ]] && [[ ! $os == "Darwin" ]]; then
     echo "This script does not support this OS."
@@ -34,6 +39,8 @@ install_requirements(){
           brew install curl
         fi
     fi
+
+    $python -m pip install wheel pybind11 ~= 2.9.0
 }
 
 install_requirements
