@@ -21,7 +21,7 @@ class BuildPyCommand(build_py):
     def run(self):
         output = super().run()
         subprocess.check_call(
-            f"sh {os.path.join(scripts_directory, 'install_requirements.sh')}",
+            f"bash {os.path.join(scripts_directory, 'install_requirements.sh')}",
             cwd=scripts_directory,
             shell=True,
         )
@@ -95,7 +95,7 @@ class InstallCommand(install):
     def run(self):
         if not shutil.which("mecab"):
             subprocess.check_call(
-                f"sh {os.path.join(scripts_directory, 'install_mecab_ko_dic.sh')}",
+                f"bash {os.path.join(scripts_directory, 'install_mecab_ko_dic.sh')}",
                 cwd=scripts_directory,
                 shell=True,
             )
