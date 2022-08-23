@@ -20,12 +20,11 @@ if [[ ! $os == "Linux" ]] && [[ ! $os == "Darwin" ]]; then
 fi
 
 install_requirements(){
-    # TODO: if not [automake --version]
     if [ "$os" == "Linux" ]; then
         if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
-            $sudo apt-get update && $sudo apt-get install -y build-essential curl python3-devel libmecab-dev git
+            $sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC && $sudo apt-get update && $sudo apt-get install build-essential curl python3-dev libmecab-dev git -y
         elif [ "$(grep -Ei 'fedora|redhat' /etc/*release)" ]; then
-            $sudo yum groupinstall -y 'Development Tools' 'Development Libraries' && $sudo yum install -y curl python3-devel  git
+            $sudo yum groupinstall 'Development Tools' 'Development Libraries' -y && $sudo yum install curl python3-devel git -y
         fi
     elif [ "$os" == "Darwin" ]; then
         if [[ $(command -v brew) == "" ]]; then
@@ -39,8 +38,6 @@ install_requirements(){
           brew install curl git
         fi
     fi
-
-    $python -m pip install wheel pybind11~=2.9.0
 }
 
 install_requirements

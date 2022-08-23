@@ -7,7 +7,6 @@ import setuptools
 from setuptools import find_packages, setup, Extension
 from setuptools.command.build_ext import build_ext
 from setuptools.command.build_py import build_py
-from setuptools.command.install import install
 
 # Based on https://github.com/pybind/python_example
 
@@ -15,17 +14,6 @@ os.environ["PATH"] += os.pathsep + os.path.join(sys.prefix, "bin")
 base_path = os.path.abspath(os.path.dirname(__file__))
 scripts_directory = os.path.join(base_path, "scripts")
 requirements_installed = False
-
-
-class BuildPyCommand(build_py):
-    def run(self):
-        output = super().run()
-        subprocess.check_call(
-            f"bash {os.path.join(scripts_directory, 'install_requirements.sh')}",
-            cwd=scripts_directory,
-            shell=True,
-        )
-        return output
 
 
 class BuildExtensionCommand(build_ext):
@@ -91,16 +79,24 @@ class BuildExtensionCommand(build_ext):
             )
 
 
-class InstallCommand(install):
-    def run(self):
+class InstallRequirements(build_py):
+    def run(self) -> None:
+        subprocess.check_call(
+            ["bash", os.path.join(scripts_directory, "install_requirements.sh")],
+            cwd=scripts_directory,
+        )
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", "wheel", "pybind11~=2.9.0"],
+            cwd=scripts_directory,
+        )
+
         if not shutil.which("mecab"):
             subprocess.check_call(
-                f"bash {os.path.join(scripts_directory, 'install_mecab_ko_dic.sh')}",
+                ["bash", os.path.join(scripts_directory, "install_mecab_ko_dic.sh")],
                 cwd=scripts_directory,
-                shell=True,
             )
 
-        super().run()
+        return super(InstallRequirements, self).run()
 
 
 def lazy(func):
@@ -203,8 +199,7 @@ setup(
     ],
     packages=find_packages(),
     cmdclass={
-        "install": InstallCommand,
-        "build_py": BuildPyCommand,
+        "build_py": InstallRequirements,
         "build_ext": BuildExtensionCommand,
     },
 )
