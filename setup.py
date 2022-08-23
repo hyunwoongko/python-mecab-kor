@@ -119,6 +119,11 @@ def lazy(func):
 
 @lazy
 def get_pybind_include(user=False):
+    subprocess.check_call(
+        [sys.executable, "-m", "pip", "install", "wheel", "pybind11~=2.9.0"],
+        cwd=scripts_directory,
+    )
+
     import pybind11
 
     return pybind11.get_include(user)
