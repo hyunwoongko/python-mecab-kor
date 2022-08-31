@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 import sys
+from contextlib import suppress
 
 import setuptools
 from setuptools import find_packages, setup, Extension
@@ -79,16 +80,40 @@ class BuildExtensionCommand(build_ext):
             )
 
 
+def install_python_packages():
+    requirements = [
+        sys.executable,
+        "-m",
+        "pip",
+        "install",
+        "wheel",
+        "pybind11~=2.9.0",
+    ]
+
+    with suppress(Exception):
+        subprocess.check_call(
+            requirements,
+            cwd=scripts_directory,
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+        )
+    with suppress(Exception):
+        subprocess.check_call(
+            ["sudo"] + requirements,
+            cwd=scripts_directory,
+            stderr=subprocess.DEVNULL,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+        )
+
+
 class InstallRequirements(build_py):
     def run(self) -> None:
         subprocess.check_call(
             ["bash", os.path.join(scripts_directory, "install_requirements.sh")],
             cwd=scripts_directory,
         )
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "wheel", "pybind11~=2.9.0"],
-            cwd=scripts_directory,
-        )
+        install_python_packages()
 
         if not shutil.which("mecab"):
             subprocess.check_call(
@@ -119,10 +144,7 @@ def lazy(func):
 
 @lazy
 def get_pybind_include(user=False):
-    subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", "wheel", "pybind11~=2.9.0"],
-        cwd=scripts_directory,
-    )
+    install_python_packages()
 
     import pybind11
 
