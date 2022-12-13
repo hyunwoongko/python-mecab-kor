@@ -22,7 +22,7 @@ fi
 install_requirements(){
     if [ "$os" == "Linux" ]; then
         if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
-            $sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC && $sudo apt-get update && $sudo apt-get install build-essential curl python3-dev libmecab-dev git -y
+            $sudo gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys A4B469963BF863CC && $sudo apt-get update && $sudo apt-get install build-essential curl python3-dev libmecab-dev git -y
         elif [ "$(grep -Ei 'fedora|redhat' /etc/*release)" ]; then
             $sudo yum groupinstall 'Development Tools' 'Development Libraries' -y && $sudo yum install curl python3-devel git -y
         fi
