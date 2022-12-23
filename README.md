@@ -48,7 +48,7 @@ mecab.pos('자연주의 쇼핑몰은 어떤 곳인가?')
 mecab.pos('자연주의 쇼핑몰은 어떤 곳인가?', drop_space=False)
 # [('자연주의', 'NNG'), (' ', 'SP'), ('쇼핑몰', 'NNG'), ('은', 'JX'), (' ', 'SP'), ('어떤', 'MM'), (' ', 'SP'), ('곳', 'NNG'), ('인가', 'VCP+EF'), ('?', 'SF')]
 
-mecab.parse('즐거운 하루 보내세요!')
+mecab.parse('즐거운 하루\n보내세요!')
 # [
 #     ('즐거운', Feature(
 #         pos='VA+ETM', semantic=None, has_jongseong=True, reading='즐거운',
