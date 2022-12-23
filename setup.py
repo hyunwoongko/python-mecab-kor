@@ -167,17 +167,18 @@ def get_mecab_library_directory():
     )
 
 
-version = {}  # type: ignore
-
-with open("mecab/__version__.py", "r") as version_file:
-    exec(version_file.read(), version)
+version = None
+with open(os.path.join("mecab", "__init__.py"), encoding="utf-8") as f:
+    for line in f:
+        if line.strip().startswith("__version__"):
+            version = line.split("=")[1].strip().replace('"', "").replace("'", "")
 
 with open("README.md", "r", encoding="utf-8") as input_file:
     long_description = input_file.read()
 
 setup(
     name="python-mecab-kor",
-    version=version["version"],
+    version=version,
     url="https://github.com/hyunwoongko/python-mecab-kor",
     author="Hyunwoong Ko",
     author_email="gusdnd852@gmail.com",
