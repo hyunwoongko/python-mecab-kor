@@ -33,9 +33,9 @@ install_requirements(){
             exit 0
         fi
         if [[ $(uname -m) == 'arm64' ]]; then
-          arch -arm64 brew install curl git
+          $sudo arch -arm64 brew install curl git
         else
-          brew install curl git
+          $sudo brew install curl git
         fi
     fi
 }

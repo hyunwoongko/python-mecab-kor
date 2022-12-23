@@ -130,9 +130,9 @@ install_automake(){
             exit 0
         fi
         if [[ $(uname -m) == 'arm64' ]]; then
-          arch -arm64 brew install automake
+          $sudo arch -arm64 brew install automake
         else
-          brew install automake
+          $sudo brew install automake
         fi
     fi
 }
